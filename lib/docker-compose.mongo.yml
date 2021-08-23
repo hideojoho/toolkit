@@ -3,11 +3,11 @@ version: '2.2'
 services:
 
     mongo:
-        restart: always
+        restart: unless-stopped
         image: "${MONGO_IMAGE}"
         container_name: mongo
         volumes:
-            - "${MONGO_DATA_PATH}:/data/db"
+            - mongodata:/data/db
         expose:
             - 27017
         healthcheck:
@@ -22,3 +22,5 @@ services:
           condition: service_healthy
       links:
         - mongo
+volumes:
+    mongodata:
